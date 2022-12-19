@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import '../pagina02.dart';
+//import '../pagina02.dart';
 import 'package:flutter/services.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
+
+import 'formularioGoogle.dart';
 
 
 class FormaFormulario extends StatefulWidget {
@@ -64,9 +66,9 @@ class _FormaFormularioState extends State<FormaFormulario> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       //decoration: const BoxDecoration(
-          //image: DecorationImage(image: NetworkImage("https://st.depositphotos.com/1016440/2534/i/950/depositphotos_25344733-stock-photo-sunrise-at-the-beach.jpg"),
-              //fit: BoxFit.cover
-          //)
+      //image: DecorationImage(image: NetworkImage("https://st.depositphotos.com/1016440/2534/i/950/depositphotos_25344733-stock-photo-sunrise-at-the-beach.jpg"),
+      //fit: BoxFit.cover
+      //)
       //),
       child: Column(
         children:[
@@ -116,7 +118,7 @@ class _FormaFormularioState extends State<FormaFormulario> {
           const SizedBox(height: 20,),
 
           botonmover(context),
-      ],
+        ],
       ),
     );
   }
@@ -168,7 +170,7 @@ Widget botonmover(conte){    //Es importante pasarle el contexto, y debe estar e
   return ElevatedButton(
       child: const Text("->") ,
       onPressed: (){
-        Navigator.push(conte, MaterialPageRoute(builder: (context)=> Pagina02()),
+        Navigator.push(conte, MaterialPageRoute(builder: (context)=> MainPage()),
         );
       }
   );
