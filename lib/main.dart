@@ -2,11 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:testfirebase/widgets/auth.dart';
-//import 'package:testfirebase/widgets/formulario_formas.dart';
-import 'package:testfirebase/widgets/home_page.dart';
-//import 'package:testfirebase/widgets/home_page.dart';
-import 'package:testfirebase/widgets/inicio_sesion.dart';
-
+import 'package:testfirebase/widgets/formulario_formas.dart';
 import 'Utils.dart';
 //import 'package:testfirebase/widgets/registro.dart';
 
@@ -48,8 +44,8 @@ class MyApp extends StatelessWidget {
         } else if (snapshot.hasError) {
           return Center(child: Text('Algo ha salido mal'),);
         } else if (snapshot.hasData){
-          return HomePage() ;
-          //return FormaFormulario() ;
+          return FormaFormulario() ;
+          //return HomePage() ;
         } else {
           return Auth();
         }

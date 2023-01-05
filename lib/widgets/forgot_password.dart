@@ -1,9 +1,8 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
 import '../Utils.dart';
-import '../main.dart';
+
 
 class ForgotPassword extends StatefulWidget{
   @override
@@ -20,18 +19,10 @@ class _ForgotPasswordState extends State<ForgotPassword>{
     super.dispose();
   }
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-        debugShowCheckedModeBanner:
-        false, //Mostrar debug en la esquina superior
-        title: 'Mi App',
-        theme: ThemeData(
-          primaryColor: Colors.blueAccent,
-          visualDensity: VisualDensity.adaptivePlatformDensity,
-        ),
-        home: Scaffold(
+  Widget build(BuildContext context) => Scaffold(
+
           appBar: AppBar(
-            title: const Text('Inicio Sesion'),
+            title: const Text('Recuperar Contraseña'),
           ),
           body: SingleChildScrollView(
             child: Column(
@@ -46,7 +37,6 @@ class _ForgotPasswordState extends State<ForgotPassword>{
                 TextFormField(
                   //inputFormatters: [loginMask],
                   controller: emailController,
-                  cursorColor: Colors.white,
                   textInputAction: TextInputAction.next,
                   decoration: const InputDecoration(
                       prefixIcon: Icon(Icons.email_outlined), // <-- left icon
@@ -86,8 +76,7 @@ class _ForgotPasswordState extends State<ForgotPassword>{
               ],
             ),
           ),
-        ));
-  }
+        );
 
   Future verificarEmail() async {
     showDialog(
@@ -102,8 +91,10 @@ class _ForgotPasswordState extends State<ForgotPassword>{
 
     } on FirebaseAuthException catch (e) {
       print (e);
+
       Utils.showSnackBar(e.message);
       Navigator.of(context).pop();
     }
   }
 }
+
