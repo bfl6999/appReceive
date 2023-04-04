@@ -1,15 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:intl/intl.dart';
-import 'package:lottie/lottie.dart';
 import 'package:testfirebase/widgets/formulario_formas.dart';
-import 'package:testfirebase/widgets/simple_ui_controller.dart';
 import 'package:testfirebase/widgets/user_opinion.dart';
 import 'package:webview_flutter/webview_flutter.dart';
-import 'constants.dart';
 import 'form_model.dart';
 import 'form_controller.dart';
 import 'user.dart';
@@ -60,79 +55,25 @@ class _FormularioGoogleState extends State<FormularioGoogle> {
   late String nombreUser;
   late String horaRegistro;
 
-  SimpleUIController simpleUIController = Get.put(SimpleUIController());
-
-
   //hasta aqui de momento
   @override
   Widget build(BuildContext context) {
-
-    var size = MediaQuery.of(context).size;
-    var theme = Theme.of(context);
-
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Formulario Guguel'),
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        primaryColor: Colors.blueAccent,
+        //visualDensity: VisualDensity.adaptivePlatformDensity;
       ),
-      body: GestureDetector(
-      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
-      child: Scaffold(
-          backgroundColor: Colors.white,
-          resizeToAvoidBottomInset: false,
-          //key: formKey,
-          body: LayoutBuilder(
-            builder: (context, constraints) {
-              if (constraints.maxWidth > 600) {
-                return _buildLargeScreen(size, simpleUIController, theme);
-              } else {
-                return _buildSmallScreen(size, simpleUIController, theme);
-              }
-            },
-          )),
-    ),
-    );
-  }
-
-  /// For large screens
-  Widget _buildLargeScreen(Size size, SimpleUIController simpleUIController,
-      ThemeData theme) {
-    return Column(
-      children: [
-        Expanded(
-          flex: 4,
-          child: RotatedBox(
-            quarterTurns: 3,
-            child: Lottie.network(
-              'https://raw.githubusercontent.com/xvrh/lottie-flutter/master/example/assets/Mobilo/A.json',
-              height: size.height * 0.3,
-              width: double.infinity,
-              fit: BoxFit.fill,),
-          ),
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text("Formulario Perspectiva"),
         ),
-        SizedBox(width: size.width * 0.06),
-        Expanded(
-          flex: 5,
-          child: _buildMainBody(size, simpleUIController, theme),
-        ),
-      ],
-    );
-  }
-
-  /// For Small screens
-  Widget _buildSmallScreen(Size size, SimpleUIController simpleUIController,
-      ThemeData theme) {
-    return Center(
-      child: _buildMainBody(size, simpleUIController, theme),
-    );
-  }
-
-  /// Main Body
-  Widget _buildMainBody(Size size, SimpleUIController simpleUIController,
-      ThemeData theme) {
-    return ListView(
-        /// child: Column(
-          //crossAxisAlignment: CrossAxisAlignment.start,
-          //mainAxisAlignment: MainAxisAlignment.center,
+        //body:Container contenedor con el heigh maximo permitido
+        body: ListView(
+          // No se ve webView para comprobar si se puede ver, tratar de cambiar formato..., puede ser el body, column...
+          //height: 500,
+          //width: 500,
+          //child: Column(
             children: [
               Visibility(
                   visible: false,
@@ -142,21 +83,13 @@ class _FormularioGoogleState extends State<FormularioGoogle> {
                     style: const TextStyle(
                         fontSize: 20, fontWeight: FontWeight.bold),
                   )),
-
-
-
-              //Padding(
-                //padding: const EdgeInsets.only(left: 20.0, right: 20),
-
-                ////child: Column(children: [
-
-                  const Text(
+              const Text(
                 'Cuestionario sobre el confort térmico',
                 style: TextStyle(
                     fontSize: 20, fontWeight: FontWeight.bold),
               ),
-              SizedBox(
-                height: size.height * 0.02,
+              const SizedBox(
+                height: 10,
               ),
               const Text(
                 'Preguntas breves para conocer el grado de satisfacción de las personas '
@@ -164,8 +97,8 @@ class _FormularioGoogleState extends State<FormularioGoogle> {
                 style: TextStyle(
                     fontSize: 10, fontWeight: FontWeight.normal,color: Colors.blueGrey),
               ),
-              SizedBox(
-                height: size.height * 0.02,
+              const SizedBox(
+                height: 10,
               ),
               const Text(
                 '1. ¿Se encuentra satisfecho con el ambiente térmico?',
@@ -176,10 +109,7 @@ class _FormularioGoogleState extends State<FormularioGoogle> {
                   children: <Widget>[
 
                     ListTile(
-                      title: const Align(
-                        alignment: Alignment(-1.1,0), // Cambiar a todos los Textos por igual
-                        child: Text('Siento mucho calor'),
-                      ),
+                      title: const Text('Siento mucho calor'),
                       leading: Radio<Ejemplo>(
                         value: Ejemplo.three,
                         groupValue: _ejemplo,
@@ -191,10 +121,7 @@ class _FormularioGoogleState extends State<FormularioGoogle> {
                       ),
                     ),
                     ListTile(
-                      title: const Align(
-                        alignment: Alignment(-1.1,0), // Cambiar a todos los Textos por igual
-                        child: Text('Siento calor'),
-                      ),
+                      title: const Text('Siento calor'),
                       leading: Radio<Ejemplo>(
                         value: Ejemplo.two,
                         groupValue: _ejemplo,
@@ -206,10 +133,7 @@ class _FormularioGoogleState extends State<FormularioGoogle> {
                       ),
                     ),
                     ListTile(
-                      title: const Align(
-                        alignment: Alignment(-1.1,0), // Cambiar a todos los Textos por igual
-                        child: Text('Siento un poco de calor'),
-                      ),
+                      title: const Text('Siento un poco de calor'),
                       leading: Radio<Ejemplo>(
                         value: Ejemplo.one,
                         groupValue: _ejemplo,
@@ -222,10 +146,7 @@ class _FormularioGoogleState extends State<FormularioGoogle> {
                     ),
 
                     ListTile(
-                      title: const Align(
-                        alignment: Alignment(-1.1,0), // Cambiar a todos los Textos por igual
-                        child: Text('Conforme'),
-                      ),
+                      title: const Text('Conforme'),
                       leading: Radio<Ejemplo>(
                         value: Ejemplo.zero,
                         groupValue: _ejemplo,
@@ -238,11 +159,8 @@ class _FormularioGoogleState extends State<FormularioGoogle> {
                     ),
 
                     ListTile(
-                      title: const Align(
-                        alignment: Alignment(-1.1,0), // Cambiar a todos los Textos por igual
-                        child: Text('Siento un poco de frío'),
-                      ),
-                        leading: Radio<Ejemplo>(
+                      title: const Text('Siento un poco de frío'),
+                      leading: Radio<Ejemplo>(
                         value: Ejemplo.lessone,
                         groupValue: _ejemplo,
                         onChanged: (Ejemplo? value) {
@@ -254,11 +172,8 @@ class _FormularioGoogleState extends State<FormularioGoogle> {
                     ),
 
                     ListTile(
-                      title: const Align(
-                        alignment: Alignment(-1.1,0), // Cambiar a todos los Textos por igual
-                        child: Text('Siento frío'),
-                      ),
-                        leading: Radio<Ejemplo>(
+                      title: const Text('Siento frío'),
+                      leading: Radio<Ejemplo>(
                         value: Ejemplo.lesstwo,
                         groupValue: _ejemplo,
                         onChanged: (Ejemplo? value) {
@@ -270,11 +185,8 @@ class _FormularioGoogleState extends State<FormularioGoogle> {
                     ),
 
                     ListTile(
-                      title: const Align(
-                        alignment: Alignment(-1.1,0), // Cambiar a todos los Textos por igual
-                        child: Text('Siento mucho frío'),
-                      ),
-                        leading: Radio<Ejemplo>(
+                      title: const Text('Siento mucho frío'),
+                      leading: Radio<Ejemplo>(
                         value: Ejemplo.lessthree,
                         groupValue: _ejemplo,
                         onChanged: (Ejemplo? value) {
@@ -290,8 +202,8 @@ class _FormularioGoogleState extends State<FormularioGoogle> {
               const Text('2. ¿Qué tipo de ropa diría lleva puesta ahora?', textAlign: TextAlign.start,
                 style: TextStyle(fontSize: 15, fontWeight: FontWeight.normal),),
 
-              SizedBox(
-                height: size.height * 0.02,
+              const SizedBox(
+                height: 10,
               ),
 
               SizedBox(
@@ -317,7 +229,7 @@ class _FormularioGoogleState extends State<FormularioGoogle> {
                                   ),
                                   ListTile(
                                     title: const Align(
-                                      alignment: Alignment(-2.4,0), // Cambiar a todos los Textos por igual
+                                      alignment: Alignment(-2.5,0), // Cambiar a todos los Textos por igual
                                       child: Text('Ropa ligera'),
                                     ),
 
@@ -421,8 +333,8 @@ class _FormularioGoogleState extends State<FormularioGoogle> {
               const Text('3. ¿Cuál es la actividad mas parecida que realiza?', textAlign: TextAlign.start,
                 style: TextStyle(fontSize: 15, fontWeight: FontWeight.normal),),
 
-              SizedBox(
-                height: size.height * 0.02,
+              const SizedBox(
+                height: 10,
               ),
 
               Container(
@@ -549,8 +461,8 @@ class _FormularioGoogleState extends State<FormularioGoogle> {
                     ]),
               ),
 
-              SizedBox(
-                height: size.height * 0.03,
+              const SizedBox(
+                height: 20,
               ),
               //botonmover(context),
               ElevatedButton.icon(
@@ -596,21 +508,15 @@ class _FormularioGoogleState extends State<FormularioGoogle> {
                 icon: const Icon(Icons.arrow_back_ios, size: 32),
                 //Icons.logout_outlined,
                 label: const Text(
-                  'Volver atrás',
+                  'Cerrar Sesión',
                   style: TextStyle(fontSize: 24),
                 ),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const FormaFormulario()),
-                    );
-                  }
+                onPressed: () => FirebaseAuth.instance.signOut(),
               ),
-              //),
-            ]);
-    //);
 
+            ]),
+      ),
+    );
   }
   /*
   Comprobamos si el usuario no esta creado ya en la coleccion Usuarios. Si ya está registrado, añadimos el registro a un nuevo Documento.
@@ -654,4 +560,3 @@ class _FormularioGoogleState extends State<FormularioGoogle> {
     }
   }
 }
-

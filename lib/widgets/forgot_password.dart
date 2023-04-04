@@ -15,7 +15,6 @@ class _ForgotPasswordState extends State<ForgotPassword>{
   @override
   void dispose(){
     emailController.dispose();
-
     super.dispose();
   }
   @override
@@ -25,11 +24,28 @@ class _ForgotPasswordState extends State<ForgotPassword>{
             title: const Text('Recuperar Contraseña'),
           ),
           body: SingleChildScrollView(
+            padding: EdgeInsets.all(14),
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                //Image.network(
-                  //  "https://st.depositphotos.com/1016440/2534/i/950/depositphotos_25344733-stock-photo-sunrise-at-the-beach.jpg"),
-                //Image.network("https://i.pinimg.com/550x/d9/05/63/d90563d4c01efc682f74db9c815ff831.jpg"),
+                const Icon(
+                  Icons.lock_reset_outlined,
+                  size: 150.0,
+                  color: Colors.blueAccent,
+                ),
+                const Text(
+                  'Resetea tu contraseña',
+                  style: TextStyle(fontSize: 24,fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 10,),
+                const Text(
+                  'Introduce tu correo electrónico y te enviaremos un enlace para resetear tu contraseña.',
+                  style: TextStyle(fontSize: 14,
+                    decoration: TextDecoration.none,
+                    color: Colors.black54,
+
+                  ),
+                ),
                 const SizedBox(
                   height: 20,
                 ),
@@ -53,7 +69,6 @@ class _ForgotPasswordState extends State<ForgotPassword>{
                 ),
 
                 ElevatedButton.icon(
-                  //child: const Text("Resetear contraseña"),
                   style: ElevatedButton.styleFrom(
                     minimumSize: const Size.fromHeight(50),
                   ),
@@ -66,9 +81,6 @@ class _ForgotPasswordState extends State<ForgotPassword>{
                     style: TextStyle(fontSize: 24),
                   ),
                   onPressed: verificarEmail,
-                  //onPressed: () {
-                  //Navigator.push(conte, MaterialPageRoute(builder: (context) => const FormaFormulario()),);
-                  //}
                 ),
                 const SizedBox(
                   height: 20,
@@ -82,7 +94,7 @@ class _ForgotPasswordState extends State<ForgotPassword>{
     showDialog(
         context: context,
         barrierDismissible: false,
-        builder: (context) => Center(child: CircularProgressIndicator()));
+        builder: (context) => const Center(child: CircularProgressIndicator()));
     try {
       await FirebaseAuth.instance.sendPasswordResetEmail(email: emailController.text.trim());
 
